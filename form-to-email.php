@@ -1,12 +1,24 @@
 <?php
 if(!isset($_POST['submit']))
 {
-	//This page should not be accessed directly. Need to submit the form.
-	echo "error; you need to submit the form!";
+  //This page should not be accessed directly. Need to submit the form.
+  echo "error; you need to submit the form!";
 }
 $name = $_POST['name'];
 $visitor_email = $_POST['email'];
 $message = $_POST['message'];
+$phone = $_POST['phone'];
+$userName = $_POST['name'];
+$preferred_contact_phone = $_POST['preferredPhone']; 
+$preferred_contact_email = $_POST['preferredEmail'];
+$preferText;
+
+if (isset($preferred_contact_phone)) {
+$preferred_contact_phone = 'phone';
+}
+if (isset($preferred_contact_email)) {
+$preferred_contact_email = 'email';
+}
 
 //Validate first
 if(empty($name)||empty($visitor_email)) 
@@ -24,7 +36,11 @@ if(IsInjected($visitor_email))
 $email_from = 'campbellrachelk@gmail.com';//<== update the email address
 $email_subject = "New Form submission";
 $email_body = "You have received a new message from the user $name.\n".
-    "Here is the message:\n $message".
+    "Here is the message: $message\n".
+    "From: $userName\n".
+    "Phone: $phone\n".
+    "User Email: $visitor_email\n".
+    "Preferred Contact Method: $preferred_contact_email, $preferred_contact_phone\n";
     
 $to = "campbellrachelk@gmail.com";//<== update the email address
 $headers = "From: $email_from \r\n";
